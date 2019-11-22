@@ -1,0 +1,22 @@
+{
+    "name": "nvdmatjs",
+    "version": "0.0.1",
+    "description": "",
+    "main": "nvdmatjs.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": ["descmat"],
+    "author": "dli",
+    "license": "MIT",
+    "files": ["doc/*", "dist/*"],
+    "devDependencies": {
+        "efdir": ">1.0.1",
+        "jsdoc": ">1.6.3",
+        "webpack": "^4.35.3",
+        "webpack-cli": "^3.3.5"
+    },
+    "dependencies": {
+        "lodash": ">4.16.5"
+    }
+}
