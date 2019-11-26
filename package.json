@@ -1,6 +1,6 @@
 {
     "name": "nvdmatjs",
-    "version": "0.0.5",
+    "version": "0.0.7",
     "description": "dmat",
     "main": "./dist/nvdmatjs.js",
     "scripts": {

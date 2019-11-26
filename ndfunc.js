@@ -223,7 +223,7 @@ function newNode(idpool) {
         "_rsibid":undefined,
         "_id":idpool.currid,
         "_pid":undefined,
-        "_depth":undefined,
+        "_depth":0,
     }
     idpool.currid = idpool.currid + 1
     return(d)
