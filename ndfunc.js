@@ -620,7 +620,7 @@ function _updateDepth(ndepth,sdfsel) {
 
 
 function _nonfstsibize(nd) {
-    nd._pid = null
+    nd._pid = undefined
     return(nd)
 }
 
@@ -630,7 +630,7 @@ function _fstsibize(nd) {
 }
 
 function _lstsibize(nd) {
-    nd._pid = null
+    nd._pid = undefined
     nd._rsibid = null
     return(nd)
 }
@@ -670,7 +670,7 @@ function _fstsibPrependLsib(nd,sdfsel,arg) {
     let p = getParent(nd,sdfsel)
     p._fstchid = nrnd._id
     nrnd._pid = p._id
-    nd._pid = null
+    nd._pid = undefined
     nrnd._lsibid = null
     nrnd._rsibid = nd._id
     nd._lsibid = nrnd._id
@@ -706,7 +706,7 @@ function _lstsibAppendRsib(nd,sdfsel,arg) {
     nrnd._lsibid = nd._id
     nd._rsibid = nrnd._id
     nrnd = _nonfstsibize(nrnd)
-    let rdmost = ndfunc.getRdmost(nd,sdfsel)
+    let rdmost = getRdmost(nd,sdfsel)
     let index = cmmn.afindi('_id',rdmost._id,sdfsel)
     sdfsel = cmmn.insertl(index+1,subsdfsel,sdfsel)
     return(sdfsel)
@@ -723,7 +723,7 @@ function _insertRsib(nd,sdfsel,arg) {
     nrnd._lsibid = nd._id
     nrnd._rsibid = null
     nrnd = _nonfstsibize(nrnd)
-    let rdmost = ndfunc.getRdmost(nd,sdfsel)
+    let rdmost = getRdmost(nd,sdfsel)
     let index = cmmn.afindi('_id',rdmost._id,sdfsel)
     sdfsel = cmmn.insertl(index+1,subsdfsel,sdfsel)
     return(sdfsel)
