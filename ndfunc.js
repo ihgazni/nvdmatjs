@@ -281,6 +281,16 @@ function newLeafLstsib(idpool) {
     return(d)
 }
 
+function newLeafLonelySib(idpool) {
+    let d = newNode(idpool)
+    d._lsibid = null
+    d._rsibid = null
+    d._fstchid = null
+    return(d)
+}
+
+
+
 ////sib
 
 function getLsib(nd,sdfsel) {
@@ -941,6 +951,7 @@ module.exports = {
     newLeafFstsib,
     newLeafMidsib,
     newLeafLstsib,
+    newLeafLonelySib,
     getLsib,
     getRsib,
     getPrecedingSibs,
