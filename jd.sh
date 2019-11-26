@@ -1,5 +1,5 @@
 git rm -r docs
-jsdoc nvdmat.js -d docs
+jsdoc nvdmatjs.js -d docs
 webpack
 node TOOLS/npmver.js
 git add .

@@ -1,6 +1,6 @@
 {
     "name": "nvdmatjs",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "description": "",
     "main": "nvdmatjs.js",
     "scripts": {
@@ -17,6 +17,6 @@
         "webpack-cli": "^3.3.5"
     },
     "dependencies": {
-        "lodash": ">4.16.5"
+        "lodash": "^4.17.15"
     }
 }
