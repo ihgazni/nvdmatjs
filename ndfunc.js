@@ -1,4 +1,4 @@
-const cmmn = require("./cmmn-utils")
+const cmmn = require("./cmmn-utils.js")
 
 
 /*
