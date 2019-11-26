@@ -5,7 +5,7 @@ module.exports = {
   output: {
     filename: "nvdmatjs.js",
     path: path.resolve(__dirname, "dist"),
-    library: "RNESTED",
+    library: "NVDMATJS",
     libraryTarget: "umd",
     globalObject: "this"
   },
