@@ -60,6 +60,7 @@ function plusndAddRsib(plusnd,sdfsel,text) {
     let nd = newNode(text)
     sdfsel = ndfunc.addRsib(plusnd,sdfsel,nd)
     pairPlusnd = newPlusNode()
+    ////
     sdfsel = ndfunc.addRsib(nd,sdfsel,pairPlusnd)
     childPlusnd = newPlusNode()
     sdfsel = ndfunc.addFstch(nd,sdfsel,childPlusnd)

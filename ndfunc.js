@@ -731,7 +731,6 @@ function _insertRsib(nd,sdfsel,arg) {
     nrnd._rsibid = rsib._id
     nd._rsibid = nrnd._id
     nrnd._lsibid = nd._id
-    nrnd._rsibid = null
     nrnd = _nonfstsibize(nrnd)
     let rdmost = getRdmost(nd,sdfsel)
     let index = cmmn.afindi('_id',rdmost._id,sdfsel)
