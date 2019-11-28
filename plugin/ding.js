@@ -290,7 +290,9 @@ function disp(sdfsel) {
 }
 
 
+
 module.exports = {
+    IDPOOL,
     newRoot,
     newNode,
     newPlusNode,
