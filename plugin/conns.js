@@ -91,7 +91,7 @@ function calcAndSetConns(nd,sdfsel) {
     return(nd)
 }
 
-function ndAddLsib(nd,sdfsel,tag,idpool) {
+function ndAndTagAddLsib(nd,sdfsel,tag,idpool) {
     let nnd = newNode(tag,idpool)
     sdfsel = ndfunc.addLsib(nd,sdfsel,nnd)
     calcAndSetConns(nd,sdfsel)
@@ -99,14 +99,14 @@ function ndAddLsib(nd,sdfsel,tag,idpool) {
 }
 
 
-function ndAddRsib(nd,sdfsel,tag,idpool) {
+function ndAndTagAddRsib(nd,sdfsel,tag,idpool) {
     let nnd = newNode(tag,idpool)
     sdfsel = ndfunc.addRsib(nd,sdfsel,nnd)
     calcAndSetConns(nd,sdfsel)
     return(sdfsel)
 }
 
-function ndAddLstch(nd,sdfsel,tag,idpool) {
+function ndAndTagAddLstch(nd,sdfsel,tag,idpool) {
     let nnd = newNode(tag,idpool)
     sdfsel = ndfunc.addLstch(nd,sdfsel,nnd)
     calcAndSetConns(nd,sdfsel)
@@ -159,12 +159,11 @@ function ndExpand(nd,sdfsel) {
 module.exports = {
     disp,
     newRoot,
-    newNode,
     initSdfsel,
     calcAndSetConns,
-    ndAddLsib,
-    ndAddRsib,
-    ndAddLstch,
+    ndAndTagAddLsib,
+    ndAndTagAddRsib,
+    ndAndTagAddLstch,
     ndUnexpandAll,
     ndExpand,
     newIdPool:ndfunc.newIdPool,

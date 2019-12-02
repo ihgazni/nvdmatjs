@@ -216,7 +216,7 @@ function newIdPool(sdfsel) {
     if( sdfsel === undefined){
 
     } else {
-        d.currid = sdfselGetMaxId(sdfsel)
+        d.currid = sdfselGetMaxId(sdfsel) + 1
     }
     return(d)
 }
