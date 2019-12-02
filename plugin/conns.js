@@ -49,7 +49,7 @@ function newNode(tag,idpool) {
 }
 
 function initSdfsel(idpool) {
-    idpool = ndfunc.newIdPool(sdfsel)
+    idpool = (idpool === undefined) ? ndfunc.newIdPool():idpool
     let rnd = ndfunc.newRoot(idpool)
     let sdfsel = [rnd]
     return([sdfsel,idpool])
