@@ -168,6 +168,7 @@ module.exports = {
     ndUnexpandAll,
     ndExpand,
     newIdPool:ndfunc.newIdPool,
+    sdfselGetMaxId:ndfunc.sdfselGetMaxId,
 }
 
 
