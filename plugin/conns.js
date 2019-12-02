@@ -1,14 +1,16 @@
 const ndfunc = require("../ndfunc")
 const cmmn = require("../cmmn-utils")
-const connd = {
+let CONND = {
     't':'├── ',
     'v':'│   ',
     'l':'└── ',
     'ws':'    '
 }
 
+let CONN_WIDTH = 8;
+
 function _dispOne(nd) {
-    let arr = nd.conns.map((r)=>connd[r])
+    let arr = nd.conns.map((r)=>CONND[r])
     let s = arr.join('')
     s = s + nd.tag
     return(s)
@@ -33,8 +35,10 @@ function newRoot(idpool) {
     r.expanded = true
     r.display = false
     r.checked = false
+    r.leaf = true
     r._conns = []
     r.conns = []
+    r.connWidth = CONN_WIDTH
     return(r)
 }
 
@@ -44,8 +48,10 @@ function newNode(tag,idpool) {
     r.expanded = true
     r.display = true
     r.checked = false
+    r.leaf = true
     r._conns = []
     r.conns = []
+    r.connWidth = CONN_WIDTH
     return(r)
 }
 
@@ -150,6 +156,7 @@ function ndAndTagAddLstch(nd,sdfsel,tag,idpool) {
         sdfsel = ndfunc.addLstch(nd,sdfsel,nnd)
         calcAndSetConnsWhenAddLstch(nnd,sdfsel)
     }
+    nd.leaf = false
     return(sdfsel)
 }
 
@@ -167,7 +174,15 @@ function calcAndSetConnsWhenAddRmSelf(nd,sdfsel) {
 }
 
 
+
+
 function ndRmSelf(nd,sdfsel) {
+    if(ndfunc.isFstchAndLstch(nd)){
+        let pnd = ndfunc.getParent(nd,sdfsel)
+        pnd.leaf = true
+    } else {
+
+    }
     calcAndSetConnsWhenAddRmSelf(nd,sdfsel)
     let tmp = ndfunc.rmSelf(nd,sdfsel)
     return(tmp[0])
@@ -253,6 +268,7 @@ function _updateConnsAfterRmSelf(depth,sdfsel) {
 
 
 module.exports = {
+    CONN_WIDTH,
     disp,
     newRoot,
     initSdfsel,

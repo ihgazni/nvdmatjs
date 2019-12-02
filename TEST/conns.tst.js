@@ -86,4 +86,82 @@ undefined
 >
 
 
+> conns.disp(sdfsel)
+html
+├── head
+    ├── link
+    └── link
+└── body
+    ├── a
+    ├── div
+    │   └── ul
+    │       └── li
+    ├── div
+    └── div
+undefined
+>
+> sdfsel[0].leaf
+false
+> sdfsel[1].leaf
+false
+> sdfsel[2].leaf
+false
+> sdfsel[3].leaf
+true
+> sdfsel[4].leaf
+true
+> sdfsel[5].leaf
+false
+> sdfsel[6].leaf
+true
+> sdfsel[7].leaf
+false
+> sdfsel[8].leaf
+false
+> sdfsel[9].leaf
+true
+> sdfsel[10].leaf
+true
+> sdfsel[11].leaf
+true
+>
+> conns.disp(sdfsel)
+html
+├── head
+    ├── link
+    └── link
+└── body
+    ├── a
+    ├── div
+    │   └── ul
+    │       └── li
+    ├── div
+    └── div
+undefined
+>
+> sdfsel[0].leaf
+false
+> sdfsel[1].leaf
+false
+> sdfsel[2].leaf
+false
+> sdfsel[3].leaf
+true
+> sdfsel[4].leaf
+true
+> sdfsel[5].leaf
+false
+> sdfsel[6].leaf
+true
+> sdfsel[7].leaf
+false
+> sdfsel[8].leaf
+false
+> sdfsel[9].leaf
+true
+> sdfsel[10].leaf
+true
+> sdfsel[11].leaf
+true
+>
 
