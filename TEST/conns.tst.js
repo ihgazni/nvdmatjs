@@ -25,6 +25,26 @@ sdfsel = conns.ndAndTagAddLstch(sdfsel[7],sdfsel,'ul',idpool)
 sdfsel = conns.ndAndTagAddLstch(sdfsel[8],sdfsel,'li',idpool)
 
 
+sdfsel = conns.ndUnexpandAll(sdfsel[1],sdfsel)
+conns.disp(sdfsel)
+sdfsel = conns.ndUnexpandAll(sdfsel[0],sdfsel)
+conns.disp(sdfsel)
+sdfsel = conns.ndExpand(sdfsel[0],sdfsel)
+conns.disp(sdfsel)
+sdfsel = conns.ndExpand(sdfsel[1],sdfsel)
+conns.disp(sdfsel)
+
+sdfsel = conns.ndUnexpandAll(sdfsel[2],sdfsel)
+conns.disp(sdfsel)
+
+sdfsel = conns.ndUnexpandAll(sdfsel[5],sdfsel)
+conns.disp(sdfsel)
+
+
+sdfsel = conns.ndExpand(sdfsel[5],sdfsel)
+conns.disp(sdfsel)
+
+
 `
 root 
     html
@@ -64,5 +84,6 @@ html
     └── div
 undefined
 >
+
 
 
