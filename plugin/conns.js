@@ -1,10 +1,10 @@
 const ndfunc = require("../ndfunc")
 const cmmn = require("../cmmn-utils")
 const connd = {
-    't':'',
-    'v':'',
-    'l':'',
-    'ws':' '
+    't':'├── ',
+    'v':'│   ',
+    'l':'└── ',
+    'ws':'    '
 }
 
 function _dispOne(nd) {
@@ -23,7 +23,6 @@ function disp(sdfsel) {
 }
 
 
-
 function newRoot(idpool) {
     /*
         不显示
@@ -34,6 +33,7 @@ function newRoot(idpool) {
     r.expanded = true
     r.display = false
     r.checked = false
+    r._conns = []
     r.conns = []
     return(r)
 }
@@ -44,6 +44,7 @@ function newNode(tag,idpool) {
     r.expanded = true
     r.display = true
     r.checked = false
+    r._conns = []
     r.conns = []
     return(r)
 }
@@ -69,32 +70,66 @@ function _calcConnMapFunc(r) {
 }
 
 
-function calcAndSetConns(nd,sdfsel) {
+function calcAndSetConnsWhenAddFstch(nd,sdfsel) {
+    //nd is fstch
+    let _conns;
+    let cond;
     if(ndfunc.isRoot(nd)) {
-
+        _conns = []
     } else {
         let pnd = ndfunc.getParent(nd,sdfsel)
-        let pconns = pnd.conns.slice(0,pnd.conns.length)
-        let conns = pconns.map(_calcConnMapFunc)
-        let cond = ndfunc.isLstch(nd)
+        let _pconns = pnd._conns.slice(0,pnd._conns.length)
+        _conns = _pconns.map(_calcConnMapFunc)
+        cond = ndfunc.isLstch(nd)
         if(cond) {
-            conns.push('l')
+            _conns.push('l')
         } else {
-            conns.push('t')
+            _conns.push('t')
         }
-        if(sdfsel[0].display === false){
-            nd.conns = conns.slice(1)
-        } else {
-            nd.conns = conns
-        }
+    }
+    ////
+    nd._conns = _conns
+    if(sdfsel[0].display === false){
+        nd.conns = _conns.slice(1)
+    } else {
+        nd.conns = _conns
     }
     return(nd)
 }
 
+
+function calcAndSetConnsWhenAddLstch(nd,sdfsel) {
+    //nd is lstch
+    let lsib = ndfunc.getLsib(nd,sdfsel)
+    lsib._conns = cmmn.setlst('t',lsib._conns)
+    lsib.conns = lsib._conns.slice(1)
+    nd = calcAndSetConnsWhenAddFstch(nd,sdfsel)
+    return(nd)
+}
+
+function calcAndSetConnsWhenAddLsib(nd,sdfsel) {
+    //nd is lsib
+    nd = calcAndSetConnsWhenAddFstch(nd,sdfsel)
+    return(nd)
+}
+
+function calcAndSetConnsWhenAddRsib(nd,sdfsel) {
+    //nd is rsib
+    if(ndfunc.isFstsib(nd)){
+        nd = calcAndSetConnsWhenAddFstch(nd,sdfsel)
+    } else {
+        nd = calcAndSetConnsWhenAddLstch(nd,sdfsel)
+    }
+    return(nd)
+}
+
+
+
+
 function ndAndTagAddLsib(nd,sdfsel,tag,idpool) {
     let nnd = newNode(tag,idpool)
     sdfsel = ndfunc.addLsib(nd,sdfsel,nnd)
-    calcAndSetConns(nd,sdfsel)
+    calcAndSetConnsWhenAddLsib(nnd,sdfsel)
     return(sdfsel)
 }
 
@@ -102,7 +137,7 @@ function ndAndTagAddLsib(nd,sdfsel,tag,idpool) {
 function ndAndTagAddRsib(nd,sdfsel,tag,idpool) {
     let nnd = newNode(tag,idpool)
     sdfsel = ndfunc.addRsib(nd,sdfsel,nnd)
-    calcAndSetConns(nd,sdfsel)
+    calcAndSetConnsWhenAddRsib(nnd,sdfsel)
     return(sdfsel)
 }
 
@@ -110,12 +145,35 @@ function ndAndTagAddLstch(nd,sdfsel,tag,idpool) {
     let nnd = newNode(tag,idpool)
     if(ndfunc.isLeaf(nd)|| ndfunc.isRoot(nd)) {
         sdfsel = ndfunc.addFstch(nd,sdfsel,nnd)
+        calcAndSetConnsWhenAddFstch(nnd,sdfsel)
     } else {
         sdfsel = ndfunc.addLstch(nd,sdfsel,nnd)
+        calcAndSetConnsWhenAddLstch(nnd,sdfsel)
     }
-    calcAndSetConns(nd,sdfsel)
     return(sdfsel)
 }
+
+function calcAndSetConnsWhenAddRmSelf(nd,sdfsel) {
+    //nd 
+    if(ndfunc.isLstsibButNotFstsib(nd)){
+        let lsib = ndfunc.getLsib(nd,sdfsel)
+        lsib._conns = cmmn.setlst('l',lsib._conns)
+        lsib.conns = lsib._conns.slice(1)
+    } else {
+        
+    }
+    //if nd is tree using update
+    return(nd)
+}
+
+
+function ndRmSelf(nd,sdfsel) {
+    calcAndSetConnsWhenAddRmSelf(nd,sdfsel)
+    let tmp = ndfunc.rmSelf(nd,sdfsel)
+    return(tmp[0])
+}
+
+
 
 function ndUnexpandAll(nd,sdfsel) {
     /*
@@ -156,19 +214,52 @@ function ndExpand(nd,sdfsel) {
 //addRsibTree
 //addLsibTree
 //addLstchTree
-//desModifyConns
 //
+
+function _updateConnsAfterAdd(sdfsel) {
+    let _gpconns = sdfsel[0]._conns.slice(0,sdfsel[0]._conns.length-1)
+    let tail = sdfsel.slice(1).map(
+        (r,i,arr)=> {
+            r._conns = _gpconns.concat(r._conns)
+            if(arr[0].display === false){
+                r.conns = r._conns.slice(1)
+            } else {
+                r.conns = r._conns
+            }
+            return(r)
+        }
+    )
+    sdfsel = tail.unshift(sdfsel[0])
+    return(sdfsel)
+}
+
+
+function _updateConnsAfterRmSelf(depth,sdfsel) {
+    sdfsel = sdfsel.map(
+        (r,i,arr)=> {
+            r._conns = cmmn.getLstSlice(depth,r._conns)
+            if(arr[0].display === false){
+                r.conns = r._conns.slice(1)
+            } else {
+                r.conns = r._conns
+            }
+            return(r)
+        }
+    )
+    return(sdfsel)
+}
+
+
 
 
 module.exports = {
     disp,
     newRoot,
-    newNode,
     initSdfsel,
-    calcAndSetConns,
     ndAndTagAddLsib,
     ndAndTagAddRsib,
     ndAndTagAddLstch,
+    ndRmSelf,
     ndUnexpandAll,
     ndExpand,
     newIdPool:ndfunc.newIdPool,

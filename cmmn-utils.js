@@ -41,6 +41,10 @@ function getlsta(a,l) {
     return(getlstv(l)[a])
 }
 
+function getLstSlice(lngth,l) {
+    return(l.slice(l.length-lngth))
+}
+
 function secdel(fsti,lsti,l) {
     let c = lsti - fsti + 1 
     l.splice(fsti,c)
@@ -55,6 +59,11 @@ function insert(i,v,l) {
 function insertl(i,subl,l) {
      l.splice(i,0,...subl)
      return(l)
+}
+
+function setlst(v,l) {
+    l[l.length-1] = v
+    return(l)
 }
 
 
@@ -165,6 +174,8 @@ module.exports = {
     getlsti,
     getlstv,
     getlsta,
+    getLstSlice,
+    setlst,
     secdel,
     insert,
     insertl,
