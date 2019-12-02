@@ -108,7 +108,7 @@ function ndAndTagAddRsib(nd,sdfsel,tag,idpool) {
 
 function ndAndTagAddLstch(nd,sdfsel,tag,idpool) {
     let nnd = newNode(tag,idpool)
-    if(ndfunc.isLeaf(nd)) {
+    if(ndfunc.isLeaf(nd)|| ndfunc.isRoot(nd)) {
         sdfsel = ndfunc.addFstch(nd,sdfsel,nnd)
     } else {
         sdfsel = ndfunc.addLstch(nd,sdfsel,nnd)
