@@ -50,7 +50,7 @@ function newNode(tag,idpool) {
 
 function initSdfsel(idpool) {
     idpool = (idpool === undefined) ? ndfunc.newIdPool():idpool
-    let rnd = ndfunc.newRoot(idpool)
+    let rnd = newRoot(idpool)
     let sdfsel = [rnd]
     return([sdfsel,idpool])
 }
@@ -108,7 +108,11 @@ function ndAndTagAddRsib(nd,sdfsel,tag,idpool) {
 
 function ndAndTagAddLstch(nd,sdfsel,tag,idpool) {
     let nnd = newNode(tag,idpool)
-    sdfsel = ndfunc.addLstch(nd,sdfsel,nnd)
+    if(ndfunc.isLeaf(nd)) {
+        sdfsel = ndfunc.addFstch(nd,sdfsel,nnd)
+    } else {
+        sdfsel = ndfunc.addLstch(nd,sdfsel,nnd)
+    }
     calcAndSetConns(nd,sdfsel)
     return(sdfsel)
 }
@@ -159,6 +163,7 @@ function ndExpand(nd,sdfsel) {
 module.exports = {
     disp,
     newRoot,
+    newNode,
     initSdfsel,
     calcAndSetConns,
     ndAndTagAddLsib,
