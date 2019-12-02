@@ -75,6 +75,27 @@ function _calcConnMapFunc(r) {
     return(rslt)
 }
 
+function _updateAllDesAfterModify(nd,sdfsel) {
+    let deses = ndfunc.getAllDeses(nd,sdfsel)
+    if(deses.length === 0 || nd._conns.length === 0) {
+
+    } else {
+        let pLstConn = cmmn.getlstv(nd._conns)
+        let sndlstConn = _calcConnMapFunc(pLstConn)
+        for(let i=0;i<deses.length;i++){
+            let lngth = deses[i]._conns.length
+            if(lngth >=2) {
+                deses[i]._conns[lngth-2] = sndlstConn
+            }
+            if(sdfsel[0].display === false){
+                deses[i].conns = deses[i]._conns.slice(1)
+            } else {
+                deses[i].conns = deses[i]._conns
+            }
+        }
+    }
+}
+
 
 function calcAndSetConnsWhenAddFstch(nd,sdfsel) {
     //nd is fstch
@@ -109,6 +130,9 @@ function calcAndSetConnsWhenAddLstch(nd,sdfsel) {
     let lsib = ndfunc.getLsib(nd,sdfsel)
     lsib._conns = cmmn.setlst('t',lsib._conns)
     lsib.conns = lsib._conns.slice(1)
+    _updateAllDesAfterModify(lsib,sdfsel)
+    //
+    //
     nd = calcAndSetConnsWhenAddFstch(nd,sdfsel)
     return(nd)
 }
@@ -160,12 +184,13 @@ function ndAndTagAddLstch(nd,sdfsel,tag,idpool) {
     return(sdfsel)
 }
 
-function calcAndSetConnsWhenAddRmSelf(nd,sdfsel) {
+function calcAndSetConnsWhenRmSelf(nd,sdfsel) {
     //nd 
     if(ndfunc.isLstsibButNotFstsib(nd)){
         let lsib = ndfunc.getLsib(nd,sdfsel)
         lsib._conns = cmmn.setlst('l',lsib._conns)
         lsib.conns = lsib._conns.slice(1)
+        _updateAllDesAfterModify(lsib,sdfsel)
     } else {
         
     }
@@ -183,7 +208,7 @@ function ndRmSelf(nd,sdfsel) {
     } else {
 
     }
-    calcAndSetConnsWhenAddRmSelf(nd,sdfsel)
+    calcAndSetConnsWhenRmSelf(nd,sdfsel)
     let tmp = ndfunc.rmSelf(nd,sdfsel)
     return(tmp[0])
 }
@@ -232,10 +257,12 @@ function ndExpand(nd,sdfsel) {
 //
 
 function _updateConnsAfterAdd(sdfsel) {
+    let pLstConn = cmmn.getlstv(sdfsel[0]._conns)
+    let sndlstConn = _calcConnMapFunc(pLstConn)
     let _gpconns = sdfsel[0]._conns.slice(0,sdfsel[0]._conns.length-1)
     let tail = sdfsel.slice(1).map(
         (r,i,arr)=> {
-            r._conns = _gpconns.concat(r._conns)
+            r._conns = _gpconns.concat([sndlstConn]).concat(r._conns)
             if(arr[0].display === false){
                 r.conns = r._conns.slice(1)
             } else {

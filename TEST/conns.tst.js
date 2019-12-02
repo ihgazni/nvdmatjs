@@ -70,11 +70,12 @@ root
         ├── link
         └── link
 `
+
 > conns.disp(sdfsel)
 html
 ├── head
-    ├── link
-    └── link
+│   ├── link
+│   └── link
 └── body
     ├── a
     ├── div
@@ -82,22 +83,7 @@ html
     │       └── li
     ├── div
     └── div
-undefined
->
 
-
-> conns.disp(sdfsel)
-html
-├── head
-    ├── link
-    └── link
-└── body
-    ├── a
-    ├── div
-    │   └── ul
-    │       └── li
-    ├── div
-    └── div
 undefined
 >
 > sdfsel[0].leaf
@@ -128,8 +114,8 @@ true
 > conns.disp(sdfsel)
 html
 ├── head
-    ├── link
-    └── link
+│   ├── link
+│   └── link
 └── body
     ├── a
     ├── div
