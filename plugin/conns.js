@@ -49,8 +49,8 @@ function newNode(tag,idpool) {
 }
 
 function initSdfsel(idpool) {
-    idpool = newIdPool(sdfsel)
-    let rnd = newRoot(idpool)
+    idpool = ndfunc.newIdPool(sdfsel)
+    let rnd = ndfunc.newRoot(idpool)
     let sdfsel = [rnd]
     return([sdfsel,idpool])
 }
@@ -167,6 +167,7 @@ module.exports = {
     ndAddLstch,
     ndUnexpandAll,
     ndExpand,
+    newIdPool:ndfunc.newIdPool,
 }
 
 
