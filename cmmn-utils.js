@@ -8,6 +8,15 @@ function deepcopyJSON(o) {
     i    index
     v    value
 */
+function amax(a,l) {
+    let arr = l.map(r=>r.a)
+    return(Math.max(...arr))
+}
+
+function amin(a,l) {
+    let arr = l.map(r=>r.a)
+    return(Math.min(...arr))
+}
 
 function afindi(a,v,l) {
     let i = l.findIndex(ele=>(ele[a]===v))
@@ -149,6 +158,8 @@ function equals(o1, o2) {
 
 module.exports = {
     deepcopyJSON,
+    amax,
+    amin,
     afindi,
     afindv,
     getlsti,

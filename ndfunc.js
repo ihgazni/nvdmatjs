@@ -84,7 +84,7 @@ function isFstsibButNotLstsib(nd) {
 function isLstch(nd) {
     return(
         nd._rsibid === null &&
-        nd._pid !== null
+        nd._pid !== null 
     )
 }
 
@@ -204,10 +204,19 @@ function eq(nd0,nd1) {
 
 ////new
 
+function sdfselGetMaxId(sdfsel) {
+    return(cmmn.amax('_id',sdfsel))
+}
 
-function newIdPool() {
+
+function newIdPool(sdfsel) {
     let d = {
         currid:0
+    }
+    if( sdfsel === undefined){
+
+    } else {
+        d.currid = sdfselGetMaxId(sdfsel)
     }
     return(d)
 }
@@ -289,7 +298,10 @@ function newLeafLonelySib(idpool) {
     return(d)
 }
 
+////function getRoot(l) {} 乱序寻找
 
+
+////function sdfslize(l){} 乱序重拍
 
 ////sib
 
@@ -775,6 +787,13 @@ function addFstch(nd,sdfsel,arg) {
 }
 
 
+function addLstch(nd,sdfsel,arg) {
+    let oldLstch = getLstch(nd,sdfsel)
+    return(addRsib(oldLstch,sdfsel,arg))
+}
+
+
+
 function _rootize(nd) {
     nd._lsibid = null
     nd._rsibid = null
@@ -899,7 +918,7 @@ function rmLsib(nd,sdfsel) {
 function rmSelf(nd,sdfsel) {
     let rslt;
     if(isRoot(nd)) {
-        rslt = [sdfsel,[]]
+        rslt = [[],sdfsel]
     } else if(isFstsib(nd)) {
         let p = getParent(nd,sdfsel)
         rslt = rmFstch(p,sdfsel)
@@ -918,6 +937,24 @@ function rmChild(which,nd,sdfsel)  {
         return(rmSelf(child,sdfsel))
     }
 }
+
+////
+//
+function subsdfselResetId(subsdfsel,sdfsel,idpool) {
+    let maxId = sdfselGetMaxId(sdfsel)
+    let id = maxId+1
+    for(let i=0;i<subsdfsel.length;i++) {
+        subsdfsel[i]._id = id
+        id = id+1
+    }
+    idpool.currid = id
+    return([subsdfsel,sdfsel,idpool])
+}
+
+
+//
+////
+
 
 module.exports = {
     isRoot,
@@ -940,6 +977,8 @@ module.exports = {
     havingRsib,
     idgetnd,
     eq,
+    sdfselGetMaxId,
+    subsdfselResetId,
     newIdPool,
     newNode,
     newRoot,
@@ -988,6 +1027,7 @@ module.exports = {
     addLsib,
     addRsib,
     addFstch,
+    addLstch,
     getDesFstiAndLsti,
     rmFstch,
     rmFstsib,
