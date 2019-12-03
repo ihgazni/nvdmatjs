@@ -85,7 +85,7 @@ function _updateAllDesAfterModify(nd,sdfsel) {
         for(let i=0;i<deses.length;i++){
             let lngth = deses[i]._conns.length
             if(lngth >=2) {
-                deses[i]._conns[lngth-2] = sndlstConn
+                deses[i]._conns[lngth-1-(lngth-nd._depth)] = sndlstConn
             }
             if(sdfsel[0].display === false){
                 deses[i].conns = deses[i]._conns.slice(1)
