@@ -9,12 +9,12 @@ function deepcopyJSON(o) {
     v    value
 */
 function amax(a,l) {
-    let arr = l.map(r=>r.a)
+    let arr = l.map(r=>r[a])
     return(Math.max(...arr))
 }
 
 function amin(a,l) {
-    let arr = l.map(r=>r.a)
+    let arr = l.map(r=>r[a])
     return(Math.min(...arr))
 }
 

@@ -7,7 +7,18 @@ let CONND = {
     'ws':'    '
 }
 
-let CONN_WIDTH = 8;
+let CONN_WIDTH = {
+    'value':8
+}
+
+function unifyWidth(sdfsel) {
+    sdfsel = sdfsel.map(
+        r=>{
+            r.connWidth = CONN_WIDTH.value
+            return(r)
+        }
+    )
+}
 
 function _dispOne(nd) {
     let arr = nd.conns.map((r)=>CONND[r])
@@ -30,6 +41,7 @@ function newRoot(idpool) {
         不显示
         永远展开
     */
+    console.log(CONN_WIDTH)
     let r = ndfunc.newRoot(idpool)
     r.tag = 'root'
     r.expanded = true
@@ -38,7 +50,7 @@ function newRoot(idpool) {
     r.leaf = true
     r._conns = []
     r.conns = []
-    r.connWidth = CONN_WIDTH
+    r.connWidth = CONN_WIDTH.value
     return(r)
 }
 
@@ -51,7 +63,7 @@ function newNode(tag,idpool) {
     r.leaf = true
     r._conns = []
     r.conns = []
-    r.connWidth = CONN_WIDTH
+    r.connWidth = CONN_WIDTH.value
     return(r)
 }
 
@@ -296,6 +308,7 @@ function _updateConnsAfterRmSelf(depth,sdfsel) {
 
 module.exports = {
     CONN_WIDTH,
+    unifyWidth,
     disp,
     newRoot,
     initSdfsel,
