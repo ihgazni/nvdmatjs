@@ -18,6 +18,7 @@ function unifyWidth(sdfsel) {
             return(r)
         }
     )
+    return(sdfsel)
 }
 
 function _dispOne(nd) {
