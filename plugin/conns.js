@@ -171,6 +171,7 @@ function calcAndSetConnsWhenAddRsib(nd,sdfsel) {
 
 function ndAndTagAddLsib(nd,sdfsel,tag,idpool) {
     let nnd = newNode(tag,idpool)
+    nnd.connWidth = nd.connWidth
     sdfsel = ndfunc.addLsib(nd,sdfsel,nnd)
     calcAndSetConnsWhenAddLsib(nnd,sdfsel)
     return(sdfsel)
@@ -179,6 +180,7 @@ function ndAndTagAddLsib(nd,sdfsel,tag,idpool) {
 
 function ndAndTagAddRsib(nd,sdfsel,tag,idpool) {
     let nnd = newNode(tag,idpool)
+    nnd.connWidth = nd.connWidth
     sdfsel = ndfunc.addRsib(nd,sdfsel,nnd)
     calcAndSetConnsWhenAddRsib(nnd,sdfsel)
     return(sdfsel)
@@ -186,6 +188,7 @@ function ndAndTagAddRsib(nd,sdfsel,tag,idpool) {
 
 function ndAndTagAddLstch(nd,sdfsel,tag,idpool) {
     let nnd = newNode(tag,idpool)
+    nnd.connWidth = nd.connWidth
     if(ndfunc.isLeaf(nd)|| ndfunc.isRoot(nd)) {
         sdfsel = ndfunc.addFstch(nd,sdfsel,nnd)
         calcAndSetConnsWhenAddFstch(nnd,sdfsel)
