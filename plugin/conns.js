@@ -194,6 +194,7 @@ function ndAndTagAddLstch(nd,sdfsel,tag,idpool) {
         calcAndSetConnsWhenAddLstch(nnd,sdfsel)
     }
     nd.leaf = false
+    nd.expanded = true
     return(sdfsel)
 }
 
